@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Furesoft.Pipeline</id>
+    <title>Furesoft.Pipeline</title>
+    <version>0.0.4</version>
+    <description>
+      A very easy to use Pipeline
+    </description>
+    <summary>
+      A very easy to use Pipeline
+    </summary>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>Furesoft</authors>
+    <copyright>Copyright Furesoft</copyright>
+    <projectUrl>https://github.com/furesoft/Furesoft.Pipeline</projectUrl>
+    <tags>pipeline, csharp, concrete</tags>
+  </metadata>
+  <files>
+    <file src="Furesoft.Pipeline.dll" target="/bin/Debug/netstandard2.0" />
+  </files>
+</package>
