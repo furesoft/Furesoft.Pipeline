@@ -39,15 +39,17 @@ namespace TestPipeConsole
 
         private static void TransferMethodResult(object result, HttpListenerResponse res)
         {
-            if (result is string s)
+            if (result is string || result is int | result is double)
             {
-                res.AsText(s);
+                res.AsText(result.ToString());
             }
             //ToDo: check for View
             else if(result is View<object> v) {
-                var template = Template.Parse(File.ReadAllText(Environment.CurrentDirectory + "/"  + v.Viewname));
-        var r = template.Render(v.Model);
-        res.AsText(r);
+                var view = ViewLocator.FindView(v.Viewname);
+                var template = Template.Parse(view);
+                var r = template.Render(v.Model);
+
+                res.AsText(r);
             }
             else
             {
