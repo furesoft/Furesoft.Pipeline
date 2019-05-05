@@ -2,11 +2,15 @@
 
 <html>
 
-<body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../print.css" /> 
+    </head>
+    <body>
 
-    <h1>{{ name }}</h1>
-    <p>{{ x }}</p>
+        <h1>{{ name }}</h1>
+        <p>{{ x }}</p>
+        <img src="../scriban.png" />
 
-</body>
+    </body>
 
 </html>

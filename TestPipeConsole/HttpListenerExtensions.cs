@@ -21,10 +21,12 @@ namespace TestPipeConsole
         }
 
         public static void Error(this HttpListenerResponse resp, int errorcode, string description) {
+           try {
             resp.StatusCode = errorcode;
             resp.StatusDescription = description;
 
             resp.Close();
+           } catch {}
         }
 
         public static T AsObject<T>(this HttpListenerRequest req) {

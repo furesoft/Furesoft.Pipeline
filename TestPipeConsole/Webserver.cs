@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading;
 using Furesoft.Pipeline;
@@ -28,6 +29,13 @@ namespace TestPipeConsole
                     }
                     if(context.Request.HttpMethod == "POST") {
                         _posts.GetOrIgnore(context.Request.Url.AbsolutePath)?.Invoke(context.Request, context.Response);
+                    }
+
+                    if(File.Exists(Environment.CurrentDirectory + "/" + context.Request.Url.AbsolutePath)) {
+                        context.Response.Close(File.ReadAllBytes(Environment.CurrentDirectory + "/" + context.Request.Url.AbsolutePath), false);
+                    }
+                    else {
+                        context.Response.Error(404, "Resource not found!");
                     }
                 }
             });
