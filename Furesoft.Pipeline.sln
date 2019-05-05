@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furesoft.Pipeline", "Furesoft.Pipeline\Furesoft.Pipeline.csproj", "{4F52D236-C867-498B-B9C7-25C77B6ADA8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPipeConsole", "TestPipeConsole\TestPipeConsole.csproj", "{53B1353E-109E-48D0-A1E5-C20AEEF58E47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F52D236-C867-498B-B9C7-25C77B6ADA8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F52D236-C867-498B-B9C7-25C77B6ADA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F52D236-C867-498B-B9C7-25C77B6ADA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F52D236-C867-498B-B9C7-25C77B6ADA8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B1353E-109E-48D0-A1E5-C20AEEF58E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B1353E-109E-48D0-A1E5-C20AEEF58E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B1353E-109E-48D0-A1E5-C20AEEF58E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B1353E-109E-48D0-A1E5-C20AEEF58E47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Furesoft.Pipeline\Furesoft.Pipeline.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HttpMultipartParser" Version="2.2.4" />
+    <PackageReference Include="NETStandard.HttpListener" Version="1.0.3.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+</Project>
