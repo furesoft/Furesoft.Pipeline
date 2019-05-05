@@ -31,8 +31,15 @@ public class Main {
     public object Index(string req) {
         return "returning with routing successfully! :D :P ... " + req;
     }
-}
 
+    [Route("/app/")]
+    public View<object> AppIndex() {
+        return new AppIndexViewModel { Name = "hello world" };
+    }
+}
+public class AppIndexViewModel {
+    public string Name { get; set; }
+}
     public class DisallowGET : IFilter
     {
         public object Execute(object input)

@@ -11,7 +11,12 @@ namespace TestPipeConsole
             this.Method = m;
         }
 
-        public string Path { get; set; } 
+        public RouteAttribute(string p)
+        {
+            this.Path = p;
+            this.Method = "GET";
+        }
+        public string Path { get; set; }
         public string Method { get; set; }
     }
 }

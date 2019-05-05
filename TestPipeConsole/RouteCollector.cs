@@ -5,6 +5,8 @@ using System.Web;
 using System.Linq;
 using System.ComponentModel;
 using System.Collections.Generic;
+using Scriban;
+using System.IO;
 
 namespace TestPipeConsole
 {
@@ -42,7 +44,11 @@ namespace TestPipeConsole
                 res.AsText(s);
             }
             //ToDo: check for View
-
+            else if(result is View<object> v) {
+                var template = Template.Parse(File.ReadAllText(Environment.CurrentDirectory + "/"  + v.Viewname));
+        var r = template.Render(v.Model);
+        res.AsText(r);
+            }
             else
             {
                 res.AsJson(result);
