@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
+using System.Threading;
 using Furesoft.Pipeline;
 
 namespace TestPipeConsole
@@ -37,6 +39,20 @@ public class Main {
         return new AppIndexViewModel { Name = "hello world" };
     }
 }
+
+public class Auth {
+    [Route("/auth")]
+    public object Auths(string username, string pw, System.Net.Http.HttpListenerResponse resp) {
+        if(Thread.CurrentPrincipal.Identity.IsAuthenticated) {
+            resp.RedirectAsync(new Uri("/app/"));
+        }
+        else {
+            return "login";
+        }
+        return "login";
+    }
+}
+
 public class AppIndexViewModel {
     public string Name { get; set; }
 }
@@ -44,13 +60,15 @@ public class AppIndexViewModel {
     {
         public object Execute(object input)
         {
-            var arg = (HttpListenerContext) input;
+            var arg = (System.Net.HttpListenerContext) input;
 
             if(arg.Request.HttpMethod == "GET") {
                 if(arg.Request.Url.LocalPath == "/api/users") {
-                    arg.Response.AsJson(new {username = "filmee24"});
+                    arg.Response.AsJson(new {username = arg.Request.Cookies["username"].Value});
                 }
-                return null;
+                else {
+                    arg.Response.SetCookie(new Cookie("username", "filmee24"));
+                }
             }
             if(arg.Request.HttpMethod == "POST") {
                 if(arg.Request.Url.LocalPath == "/api/users") {

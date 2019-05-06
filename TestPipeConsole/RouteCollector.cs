@@ -26,11 +26,11 @@ namespace TestPipeConsole
                     {
                         if (attr.Method == "GET")
                         {
-                            ws.Get(attr.Path, (req, res) => TransferMethodResult(m.Invoke(Activator.CreateInstance(t), GetInputs(req, m)), res));
+                            ws.Get(attr.Path, (req, res) => TransferMethodResult(m.Invoke(Activator.CreateInstance(t), GetInputs(req, res, m)), res));
                         }
                         else if (attr.Method == "POST")
                         {
-                            ws.Post(attr.Path, (req, res) => TransferMethodResult(m.Invoke(Activator.CreateInstance(t), GetInputs(req, m)), res));
+                            ws.Post(attr.Path, (req, res) => TransferMethodResult(m.Invoke(Activator.CreateInstance(t), GetInputs(req, res, m)), res));
                         }
                     }
                 }
@@ -44,7 +44,8 @@ namespace TestPipeConsole
                 res.AsText(result.ToString());
             }
             //ToDo: check for View
-            else if(result is View<object> v) {
+            else if (result is View<object> v)
+            {
                 var view = ViewLocator.FindView(v.Viewname);
                 var template = Template.Parse(view);
                 var r = template.Render(v.Model);
@@ -57,7 +58,7 @@ namespace TestPipeConsole
             }
         }
 
-        private static object[] GetInputs(HttpListenerRequest req, MethodInfo mi)
+        private static object[] GetInputs(HttpListenerRequest req, HttpListenerResponse resp, MethodInfo mi)
         {
             var res = new List<object>();
             if (req.HttpMethod == "GET")
@@ -66,13 +67,28 @@ namespace TestPipeConsole
 
                 foreach (var pa in mi.GetParameters())
                 {
-                    var value = query[pa.Name];
-                    var tc = TypeDescriptor.GetConverter(pa.ParameterType);
-                    var convertet = tc.ConvertFromString(value);
-
-                    if (value != null)
+                    if (pa.ParameterType is HttpListenerRequest)
                     {
-                        res.Add(convertet);
+                        res.Add(req);
+                        continue;
+                    }
+                    if (pa.ParameterType is HttpListenerResponse)
+                    {
+                        res.Add(resp);
+                        continue;
+                    }
+
+                    if (query.Count > 0)
+                    {
+                        var value = query[pa.Name];
+                        if(value == null) continue;
+                        var tc = TypeDescriptor.GetConverter(pa.ParameterType);
+                        var convertet = tc.ConvertFromString(value);
+
+                        if (value != null)
+                        {
+                            res.Add(convertet);
+                        }
                     }
                 }
             }
@@ -83,6 +99,17 @@ namespace TestPipeConsole
 
                 foreach (var pa in mi.GetParameters())
                 {
+                    if (pa.ParameterType is HttpListenerRequest)
+                    {
+                        res.Add(req);
+                        continue;
+                    }
+                    if (pa.ParameterType is HttpListenerResponse)
+                    {
+                        res.Add(resp);
+                        continue;
+                    }
+
                     var value = parser.GetParameterValue(pa.Name);
                     var tc = TypeDescriptor.GetConverter(pa.ParameterType);
                     var convertet = tc.ConvertFromString(value);
